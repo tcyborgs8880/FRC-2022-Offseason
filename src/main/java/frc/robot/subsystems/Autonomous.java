@@ -37,7 +37,7 @@ public class Autonomous extends SubsystemBase {
 
 
 
-/*
+
   public void turnToAngle(double forwardSpeed, double theta){
     double leftTurn = 0, rightTurn = 0, minPower = .1;
 
@@ -67,9 +67,9 @@ public class Autonomous extends SubsystemBase {
     SmartDashboard.putNumber("turn Effort Raw:", rawTurningEffort);
     SmartDashboard.putNumber("turn Effort Mod:", turningEffort);
 
-    Robot.Drivetrain.tankDriveVolts(-(forwardSpeed+leftTurn), -(forwardSpeed+rightTurn));
+    Robot.Drivetrain.tankDriveVolts(-(leftTurn), -(rightTurn));
   }
-*/
+
 
 
 

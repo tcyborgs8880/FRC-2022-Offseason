@@ -68,7 +68,7 @@ public class AutoCommand extends CommandBase {
     double time = timer.get();  //Gets time elapsed in seconds
     m_autonomous.print();
 
-   // m_autonomous.turnToAngle(0.2, 90);
+   m_autonomous.turnToAngle(0.2, 90);
 
     //if(time < 2){
       
@@ -115,7 +115,7 @@ public class AutoCommand extends CommandBase {
       m_intake.intakeMotors(0);
     }
   */
-   
+   /*
     //Surrender (1 Ball Shoot and Taxi) Make sure shooter is facing hoop
     if (time < 2){
       m_shooter.shootShooter(1);

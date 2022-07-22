@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
     DropperCommandCommand = new DropperCommand();
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-      camera.setResolution(1080, 1080);
+      camera.setResolution(240, 240);
       camera.setFPS(30);
       camera.setExposureManual(45);
       camera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
