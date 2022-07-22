@@ -32,6 +32,8 @@ public class Autonomous extends SubsystemBase {
   public void print(){
     SmartDashboard.putNumber("Yaw:", gyro.getYaw());
     SmartDashboard.putNumber("displacement x:", gyro.getDisplacementX());
+    SmartDashboard.putNumber("displacement y:", gyro.getDisplacementY());
+    SmartDashboard.putNumber("displacement z:", gyro.getDisplacementZ());
   }
 
   public void reset(){
@@ -45,13 +47,14 @@ public class Autonomous extends SubsystemBase {
     boolean atAngle = false; //Returns true when the angle desired has been reached
 
     double  desiredEffort = 0.5,
-            maxAngle = 180,
+            maxAngle = 90,
             currentAngle = gyro.getYaw(),
             desiredAngle = theta,
             maxError = maxAngle - desiredAngle,
             kP = desiredEffort / maxError,
             currentError = desiredAngle - currentAngle,
             rawTurningEffort = kP*currentError,
+
             turningEffort = rawTurningEffort;
 
     if(Math.abs(rawTurningEffort) < minPower) turningEffort = minPower * rawTurningEffort/Math.abs(rawTurningEffort); //Set minimum value
