@@ -31,6 +31,8 @@ public class AutoCommand extends CommandBase {
   private final Intake m_intake; //Faaiz
   private final Timer timer;
   private final Dropper m_dropper;
+  private boolean atAngle;
+  private int stage;
   
   //private final Elevator m_elevator;
  // private final Intake m_intake;
@@ -60,15 +62,75 @@ public class AutoCommand extends CommandBase {
   @Override
   public void initialize() {
     timer.start();  //Starts timer
+    atAngle = false;
+    stage = 0;
+    m_autonomous.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double time = timer.get();  //Gets time elapsed in seconds
+    SmartDashboard.putNumber("stage: ", stage);
+    SmartDashboard.putNumber("timer", time);
     m_autonomous.print();
 
-   m_autonomous.turnToAngle(0.2, 90);
+
+    if(stage == 0)//shoot first ball
+    {
+      if(time < 2){
+        m_shooter.shootShooter(1);
+      }
+      else{
+        stage = 1;
+      }
+    }
+    else if(stage == 1){//turn robot
+      if(time < 4){
+        m_autonomous.turnToAngle(0, 90);
+      }
+      else{
+        m_autonomous.reset();
+        stage = 2;
+      }
+    }
+    else if(stage == 2){//drive to second ball
+      if(time < 8){
+        m_drivetrain.tankDriveVolts(0.5, 0.5);
+        m_intake.intakeMotors(0.6);
+      }
+      else{
+        stage = 4;
+        m_intake.intakeMotors(0);
+      }
+    }
+    else if(stage == 4)//turn robot around again
+    {
+      if(time < 10){
+        m_autonomous.turnToAngle(0, 90);
+      }
+      else{
+        m_autonomous.reset();
+        stage = 5;
+      }
+    }
+    else if(stage == 5){//drive to shooter
+      if(time < 14){
+        m_drivetrain.tankDriveVolts(0.5, 0.5);
+      }
+      else{
+        stage = 6;
+      }
+    }
+    else if(stage == 6){//drive to shooter
+      if(time < 16){
+        m_shooter.shootShooter(1);
+      }
+      else{
+        stage = 7;
+      }
+    }
+
 
     //if(time < 2){
       
